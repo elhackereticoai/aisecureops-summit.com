@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiales | AIsecureOps Summit 2024</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #0066ff;
+            --dark: #0a0e27;
+            --darker: #050811;
+            --accent: #ff0066;
+            --text: #e0e6f0;
+            --text-dim: #8892a8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        nav {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,255,136,0.2);
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(0,255,136,0.5);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .page-header {
+            padding: 5rem 0 3rem;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .materials-section {
+            margin: 4rem 0;
+        }
+        
+        .section-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(0,255,136,0.3);
+        }
+        
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .material-card {
+            background: linear-gradient(135deg, rgba(0,102,255,0.08) 0%, rgba(0,255,136,0.03) 100%);
+            border: 1px solid rgba(0,255,136,0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .material-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transition: left 0.6s;
+        }
+        
+        .material-card:hover::before {
+            left: 100%;
+        }
+        
+        .material-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(0,255,136,0.25);
+        }
+        
+        .material-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .material-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .material-speaker {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .material-description {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .material-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .download-button:hover {
+            background: var(--text);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,255,136,0.4);
+        }
+        
+        .coming-soon {
+            background: rgba(136,146,168,0.2);
+            border-color: rgba(136,146,168,0.3);
+        }
+        
+        .coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .coming-soon-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(136,146,168,0.3);
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 6px;
+        }
+        
+        .resources-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .resource-item {
+            background: rgba(10,14,39,0.6);
+            border: 1px solid rgba(0,255,136,0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .resource-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,255,136,0.2);
+        }
+        
+        .resource-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .resource-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .resource-description {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        
+        .resource-link:hover {
+            color: var(--text);
+        }
+        
+        footer {
+            margin-top: 8rem;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(0,255,136,0.2);
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .materials-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .resources-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title { font-size: 2.5rem; }
+            .resources-list {
+                grid-template-columns: 1fr;
+            }
+            .nav-links { gap: 1.5rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    
+    <div class="container">
+        <nav>
+            <div class="logo">AIsecureOps</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="agenda.html">Agenda</a></li>
+                <li><a href="ponentes.html">Ponentes</a></li>
+                <li><a href="materiales.html" class="active">Materiales</a></li>
+            </ul>
+        </nav>
+        
+        <section class="page-header">
+            <h1 class="page-title">Materiales</h1>
+            <p class="page-subtitle">
+                Accede a presentaciones, recursos y documentación del evento. Los materiales estarán disponibles durante y después del summit.
+            </p>
+        </section>
+        
+        <div class="materials-section">
+            <h2 class="section-header">📊 Presentaciones Keynote</h2>
+            <div class="materials-grid">
+                <div class="material-card">
+                    <div class="material-icon">🎯</div>
+                    <h3 class="material-title">El Futuro de la IA en Ciberseguridad</h3>
+                    <div class="material-speaker">Dra. María González</div>
+                    <p class="material-description">
+                        Análisis profundo de las tendencias emergentes en IA aplicada a ciberseguridad, 
+                        incluyendo modelos predictivos, detección de amenazas en tiempo real y automatización de respuesta.
+                    </p>
+                    <div class="material-meta">
+                        <span class="meta-item">📄 PDF - 45 slides</span>
+                        <span class="meta-item">⏱️ 60 min</span>
+                        <span class="meta-item">📅 Día 1</span>
+                    </div>
+                    <a href="#" class="download-button">
+                        ⬇️ Descargar PDF
+                    </a>
+                </div>
+                
+                <div class="material-card">
+                    <div class="material-icon">🤖</div>
+                    <h3 class="material-title">IA Generativa y Ciberseguridad</h3>
+                    <div class="material-speaker">Dr. Roberto Mendoza</div>
+                    <p class="material-description">
+                        Exploración de los riesgos y oportunidades que presenta la IA generativa, 
+                        desde la generación de código malicioso hasta su uso en defensa y detección de amenazas.
+                    </p>
+                    <div class="material-meta">
+                        <span class="meta-item">📄 PDF - 52 slides</span>
+                        <span class="meta-item">⏱️ 60 min</span>
+                        <span class="meta-item">📅 Día 2</span>
+                    </div>
+                    <a href="#" class="download-button">
+                        ⬇️ Descargar PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="materials-section">
+            <h2 class="section-header">🛠️ Workshops y Labs</h2>
+            <div class="materials-grid">
+                <div class="material-card">
+                    <div class="material-icon">🔴</div>
+                    <h3 class="material-title">Red Team con IA - Guía Práctica</h3>
+                    <div class="material-speaker">Equipo Red Team Labs</div>
+                    <p class="material-description">
+                        Material completo del workshop incluyendo ejercicios prácticos, scripts, 
+                        herramientas y metodologías para operaciones de red team asistidas por IA.
+                    </p>
+                    <div class="material-meta">
+                        <span class="meta-item">📦 ZIP - 156 MB</span>
+                        <span class="meta-item">🧪 Labs incluidos</span>
+                        <span class="meta-item">💻 Código fuente</span>
+                    </div>
+                    <a href="#" class="download-button">
+                        ⬇️ Descargar Material
+                    </a>
+                </div>
+                
+                <div class="material-card">
+                    <div class="material-icon">🔬</div>
+                    <h3 class="material-title">Análisis de Malware con ML</h3>
+                    <div class="material-speaker">Pedro López</div>
+                    <p class="material-description">
+                        Notebooks de Jupyter, datasets de muestras de malware (sanitizadas), 
+                        modelos pre-entrenados y documentación completa del workshop.
+                    </p>
+                    <div class="material-meta">
+                        <span class="meta-item">📦 ZIP - 234 MB</span>
+                        <span class="meta-item">🐍 Python notebooks</span>
+                        <span class="meta-item">📊 Datasets</span>
+                    </div>
+                    <a href="#" class="download-button">
+                        ⬇️ Descargar Material
+                    </a>
+                </div>
+                
+                <div class="material-card">
+                    <div class="material-icon">🟣</div>
+                    <h3 class="material-title">Purple Team Operations</h3>
+                    <div class="material-speaker">Equipo Purple Team</div>
+                    <p class="material-description">
+                        Playbooks, herramientas de automatización, scripts de detección y respuesta, 
+                        y casos de estudio de colaboración red/blue team.
+                    </p>
+                    <div class="material-meta">
+                        <span class="meta-item">📦 ZIP - 89 MB</span>
+                        <span class="meta-item">📋 Playbooks</span>
+                        <span class="meta-item">🔧 Scripts</span>
+                    </div>
+                    <a href="#" class="download-button">
+                        ⬇️ Descargar Material
+                    </a>
+                </div>
+                
+                <div class="material-card">
+                    <div class="material-icon">📊</div>
+                    <h3 class="material-title">SIEM con Machine Learning</h3>
+                    <div class="material-speaker">Sofía Navarro</div>
+                    <p class="material-description">
+                        Configuraciones de SIEM, reglas de correlación, modelos de ML para detección de anomalías, 
+                        y casos de uso prácticos con datos reales.
+                    </p>
+                    <div class="material-meta">
+                        <span class="meta-item">📦 ZIP - 178 MB</span>
+                        <span class="meta-item">⚙️ Configuraciones</span>
+                        <span class="meta-item">🤖 Modelos ML</span>
+                    </div>
+                    <a href="#" class="download-button">
+                        ⬇️ Descargar Material
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="materials-section" style="border: 2px solid rgba(255,0,102,0.3); border-radius: 12px; padding: 2rem; background: linear-gradient(135deg, rgba(255,0,102,0.05) 0%, rgba(0,0,0,0.5) 100%);">
+            <h2 class="section-header" style="color: var(--accent); border-bottom-color: rgba(255,0,102,0.5);">🔒 Sesión Clasificada - phishbroker</h2>
+            <div class="materials-grid">
+                <div class="material-card" style="background: linear-gradient(135deg, rgba(255,0,102,0.15) 0%, rgba(0,0,0,0.8) 100%); border: 2px solid rgba(255,0,102,0.4);">
+                    <div class="material-icon">🎭</div>
+                    <h3 class="material-title" style="color: var(--accent);">El Arte del Engaño Digital</h3>
+                    <div class="material-speaker" style="color: var(--accent);">phishbroker | Ponente Secreto</div>
+                    <p class="material-description">
+                        Presentación exclusiva sobre técnicas avanzadas de ingeniería social y phishing sofisticado. 
+                        Incluye casos reales, vectores de ataque innovadores y metodologías de adversarios APT. 
+                        <strong style="color: var(--accent);">⚠️ Material restringido - Solo para asistentes verificados del evento.</strong>
+                    </p>
+                    <div class="material-meta">
+                        <span class="meta-item" style="color: var(--accent);">🔒 Clasificado</span>
+                        <span class="meta-item" style="color: var(--accent);">⏱️ 60 min</span>
+                        <span class="meta-item" style="color: var(--accent);">📅 Día 2 - 17:00</span>
+                    </div>
+                    <div class="coming-soon-badge" style="background: rgba(255,0,102,0.3); color: var(--accent); border: 1px solid var(--accent);">
+                        🔐 Disponible Post-Evento
+                    </div>
+                </div>
+                
+                <div class="material-card" style="background: linear-gradient(135deg, rgba(255,0,102,0.15) 0%, rgba(0,0,0,0.8) 100%); border: 2px solid rgba(255,0,102,0.4);">
+                    <div class="material-icon">🕵️</div>
+                    <h3 class="material-title" style="color: var(--accent);">Toolkit de OSINT Avanzado</h3>
+                    <div class="material-speaker" style="color: var(--accent);">phishbroker</div>
+                    <p class="material-description">
+                        Colección exclusiva de herramientas y scripts para Open Source Intelligence, 
+                        técnicas de reconocimiento pasivo y activo, y metodologías de recolección de información. 
+                        Material complementario a la sesión principal.
+                    </p>
+                    <div class="material-meta">
+                        <span class="meta-item" style="color: var(--accent);">🔒 Acceso Restringido</span>
+                        <span class="meta-item" style="color: var(--accent);">🛠️ Scripts incluidos</span>
+                        <span class="meta-item" style="color: var(--accent);">📦 ZIP</span>
+                    </div>
+                    <div class="coming-soon-badge" style="background: rgba(255,0,102,0.3); color: var(--accent); border: 1px solid var(--accent);">
+                        🔐 Solo Asistentes Verificados
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 2rem; padding: 1rem; background: rgba(255,0,102,0.1); border-left: 3px solid var(--accent); border-radius: 6px; color: var(--text-dim);">
+                <strong style="color: var(--accent);">⚠️ Aviso Importante:</strong> Los materiales de esta sesión contienen información sensible 
+                sobre técnicas de ataque reales. El acceso está limitado exclusivamente a profesionales de ciberseguridad 
+                verificados que asistan al evento. Se requiere acuerdo de confidencialidad (NDA) para la descarga.
+            </p>
+        </div>
+        
+        <div class="materials-section">
+            <h2 class="section-header">📚 Recursos Adicionales</h2>
+            <div class="resources-list">
+                <div class="resource-item">
+                    <div class="resource-icon">📖</div>
+                    <h3 class="resource-title">Guía de Referencia</h3>
+                    <p class="resource-description">
+                        Documento consolidado con referencias, enlaces y recursos mencionados durante el evento.
+                    </p>
+                    <a href="#" class="resource-link">Ver documento →</a>
+                </div>
+                
+                <div class="resource-item">
+                    <div class="resource-icon">🎥</div>
+                    <h3 class="resource-title">Grabaciones</h3>
+                    <p class="resource-description">
+                        Acceso a las grabaciones en vídeo de todas las sesiones principales y keynotes.
+                    </p>
+                    <span class="coming-soon-badge">Próximamente</span>
+                </div>
+                
+                <div class="resource-item">
+                    <div class="resource-icon">💬</div>
+                    <h3 class="resource-title">Comunidad</h3>
+                    <p class="resource-description">
+                        Únete a nuestra comunidad en Discord para seguir aprendiendo y haciendo networking.
+                    </p>
+                    <a href="#" class="resource-link">Unirse →</a>
+                </div>
+                
+                <div class="resource-item">
+                    <div class="resource-icon">📝</div>
+                    <h3 class="resource-title">White Papers</h3>
+                    <p class="resource-description">
+                        Documentos técnicos y casos de estudio compartidos por ponentes y patrocinadores.
+                    </p>
+                    <a href="#" class="resource-link">Explorar →</a>
+                </div>
+                
+                <div class="resource-item">
+                    <div class="resource-icon">🔗</div>
+                    <h3 class="resource-title">Herramientas</h3>
+                    <p class="resource-description">
+                        Lista curada de herramientas open source y comerciales presentadas en el summit.
+                    </p>
+                    <a href="#" class="resource-link">Ver lista →</a>
+                </div>
+                
+                <div class="resource-item">
+                    <div class="resource-icon">📬</div>
+                    <h3 class="resource-title">Newsletter</h3>
+                    <p class="resource-description">
+                        Suscríbete para recibir actualizaciones sobre futuros eventos y contenido exclusivo.
+                    </p>
+                    <a href="#" class="resource-link">Suscribirse →</a>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2024 AIsecureOps Summit. Todos los derechos reservados.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Contacto: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d34
