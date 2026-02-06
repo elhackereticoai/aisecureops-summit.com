@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponentes | AIsecureOps Summit 2024</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #0066ff;
+            --dark: #0a0e27;
+            --darker: #050811;
+            --accent: #ff0066;
+            --text: #e0e6f0;
+            --text-dim: #8892a8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        nav {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,255,136,0.2);
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(0,255,136,0.5);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .page-header {
+            padding: 5rem 0 3rem;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+        
+        .speaker-card {
+            background: linear-gradient(135deg, rgba(0,102,255,0.08) 0%, rgba(0,255,136,0.03) 100%);
+            border: 1px solid rgba(0,255,136,0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+        
+        .speaker-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(0,255,136,0.3);
+        }
+        
+        .speaker-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(0,255,136,0.2) 0%, rgba(0,102,255,0.2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            border-bottom: 2px solid rgba(0,255,136,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .speaker-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .speaker-card:hover .speaker-image::before {
+            left: 100%;
+        }
+        
+        .speaker-info {
+            padding: 2rem;
+        }
+        
+        .speaker-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .speaker-title {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .speaker-company {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+        
+        .speaker-bio {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        
+        .speaker-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .topic-tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(0,255,136,0.1);
+            border: 1px solid rgba(0,255,136,0.3);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .keynote-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255,0,102,0.5);
+        }
+        
+        footer {
+            margin-top: 8rem;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(0,255,136,0.2);
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .speakers-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title { font-size: 2.5rem; }
+            .speakers-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .nav-links { gap: 1.5rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    
+    <div class="container">
+        <nav>
+            <div class="logo">AIsecureOps</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="agenda.html">Agenda</a></li>
+                <li><a href="ponentes.html" class="active">Ponentes</a></li>
+                <li><a href="materiales.html">Materiales</a></li>
+            </ul>
+        </nav>
+        
+        <section class="page-header">
+            <h1 class="page-title">Ponentes</h1>
+            <p class="page-subtitle">
+                Conoce a los expertos que compartirán su conocimiento y experiencia en el summit.
+            </p>
+        </section>
+        
+        <div class="speakers-grid">
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    <span class="keynote-badge">Keynote</span>
+                    👩‍💼
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Dra. María González</h3>
+                    <div class="speaker-title">Chief Information Security Officer</div>
+                    <div class="speaker-company">TechCorp International</div>
+                    <p class="speaker-bio">
+                        Experta en ciberseguridad con más de 15 años de experiencia liderando equipos de seguridad en empresas Fortune 500. 
+                        Pionera en la implementación de IA para detección de amenazas.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">IA</span>
+                        <span class="topic-tag">SOC</span>
+                        <span class="topic-tag">Threat Detection</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    👨‍💻
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Jorge Ramírez</h3>
+                    <div class="speaker-title">Senior Security Researcher</div>
+                    <div class="speaker-company">CyberLabs Inc.</div>
+                    <p class="speaker-bio">
+                        Investigador especializado en machine learning aplicado a ciberseguridad. 
+                        Ha descubierto múltiples vulnerabilidades críticas y desarrollado herramientas de análisis automatizado.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">Machine Learning</span>
+                        <span class="topic-tag">Research</span>
+                        <span class="topic-tag">Malware</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    👩‍💻
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Ana Martínez</h3>
+                    <div class="speaker-title">SOC Manager</div>
+                    <div class="speaker-company">SecureNet Solutions</div>
+                    <p class="speaker-bio">
+                        Líder en automatización de centros de operaciones de seguridad. 
+                        Especialista en SOAR y orquestación de respuesta a incidentes con IA.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">SOC Automation</span>
+                        <span class="topic-tag">SOAR</span>
+                        <span class="topic-tag">Incident Response</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    👨‍🔧
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Carlos Sánchez</h3>
+                    <div class="speaker-title">Security Architect</div>
+                    <div class="speaker-company">CloudSecure Systems</div>
+                    <p class="speaker-bio">
+                        Arquitecto de seguridad con experiencia en diseño e implementación de arquitecturas Zero Trust 
+                        en entornos cloud híbridos y multi-cloud.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">Zero Trust</span>
+                        <span class="topic-tag">Cloud Security</span>
+                        <span class="topic-tag">Architecture</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    👩‍🔬
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Laura Fernández</h3>
+                    <div class="speaker-title">Lead Threat Hunter</div>
+                    <div class="speaker-company">ThreatGuard Intelligence</div>
+                    <p class="speaker-bio">
+                        Cazadora de amenazas especializada en APTs y campañas de malware avanzado. 
+                        Creadora de metodologías de threat hunting basadas en inteligencia artificial.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">Threat Hunting</span>
+                        <span class="topic-tag">APT</span>
+                        <span class="topic-tag">Threat Intel</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    <span class="keynote-badge">Keynote</span>
+                    👨‍🏫
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Dr. Roberto Mendoza</h3>
+                    <div class="speaker-title">AI Security Expert</div>
+                    <div class="speaker-company">Universidad Tecnológica</div>
+                    <p class="speaker-bio">
+                        Profesor e investigador en seguridad de IA y adversarial machine learning. 
+                        Autor de múltiples publicaciones sobre defensa contra ataques a modelos de IA.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">AI Security</span>
+                        <span class="topic-tag">Research</span>
+                        <span class="topic-tag">Adversarial ML</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    👩‍⚖️
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Isabel Torres</h3>
+                    <div class="speaker-title">Senior Security Engineer</div>
+                    <div class="speaker-company">DataShield Corp</div>
+                    <p class="speaker-bio">
+                        Ingeniera de seguridad especializada en defensa contra ataques basados en IA. 
+                        Experta en detección de deepfakes y manipulación de datos mediante ML.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">AI Defense</span>
+                        <span class="topic-tag">Deepfake Detection</span>
+                        <span class="topic-tag">Data Security</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    👨‍☁️
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Miguel Ángel Ruiz</h3>
+                    <div class="speaker-title">Cloud Security Architect</div>
+                    <div class="speaker-company">MultiCloud Security</div>
+                    <p class="speaker-bio">
+                        Arquitecto especializado en seguridad cloud y contenedores. 
+                        Líder en implementación de soluciones de seguridad automatizadas en Kubernetes y serverless.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">Cloud Native</span>
+                        <span class="topic-tag">Kubernetes</span>
+                        <span class="topic-tag">Automation</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    👩‍🚀
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Patricia Gómez</h3>
+                    <div class="speaker-title">DevSecOps Lead</div>
+                    <div class="speaker-company">AgileSecure Technologies</div>
+                    <p class="speaker-bio">
+                        Líder en integración de seguridad en pipelines CI/CD. 
+                        Promotora de cultura DevSecOps y automatización de testing de seguridad.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">DevSecOps</span>
+                        <span class="topic-tag">CI/CD Security</span>
+                        <span class="topic-tag">Automation</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    👨‍🚒
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Daniel Herrera</h3>
+                    <div class="speaker-title">Incident Response Team Lead</div>
+                    <div class="speaker-company">RapidResponse Security</div>
+                    <p class="speaker-bio">
+                        Experto en respuesta a incidentes y forense digital. 
+                        Especialista en automatización de procesos de IR utilizando inteligencia artificial.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">Incident Response</span>
+                        <span class="topic-tag">Digital Forensics</span>
+                        <span class="topic-tag">Automation</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    👨‍🎯
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Pedro López</h3>
+                    <div class="speaker-title">Malware Analyst</div>
+                    <div class="speaker-company">AntiMalware Labs</div>
+                    <p class="speaker-bio">
+                        Analista de malware con experiencia en reversing y análisis automatizado. 
+                        Desarrollador de herramientas de sandbox y análisis dinámico con ML.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">Malware Analysis</span>
+                        <span class="topic-tag">Reverse Engineering</span>
+                        <span class="topic-tag">Machine Learning</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    👩‍🔐
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Sofía Navarro</h3>
+                    <div class="speaker-title">SIEM Specialist</div>
+                    <div class="speaker-company">LogAnalytics Pro</div>
+                    <p class="speaker-bio">
+                        Especialista en gestión de eventos e información de seguridad. 
+                        Experta en correlación de eventos y detección de anomalías mediante machine learning.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag">SIEM</span>
+                        <span class="topic-tag">Log Analysis</span>
+                        <span class="topic-tag">Anomaly Detection</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speaker-card" style="background: linear-gradient(135deg, rgba(255,0,102,0.15) 0%, rgba(0,0,0,0.8) 100%); border: 2px solid rgba(255,0,102,0.5);">
+                <div class="speaker-image" style="background: linear-gradient(135deg, rgba(255,0,102,0.3) 0%, rgba(0,0,0,0.9) 100%);">
+                    <span class="keynote-badge" style="background: #000; border: 2px solid var(--accent); animation: pulse 2s infinite;">🔒 Clasificado</span>
+                    🎭
+                </div>
+                <div class="speaker-info">
+                    <h3 class="speaker-name" style="color: var(--accent); text-shadow: 0 0 10px rgba(255,0,102,0.5);">phishbroker</h3>
+                    <div class="speaker-title" style="color: var(--accent);">??? | Ponente Secreto</div>
+                    <div class="speaker-company">Identidad Clasificada</div>
+                    <p class="speaker-bio">
+                        Identidad clasificada hasta el día de la ponencia. Un experto reconocido internacionalmente 
+                        en el underground de la ciberseguridad compartirá técnicas avanzadas de ingeniería social, 
+                        phishing sofisticado y tácticas reales de adversarios. Una sesión exclusiva que revelará 
+                        métodos nunca antes expuestos públicamente. Solo para asistentes verificados.
+                    </p>
+                    <div class="speaker-topics">
+                        <span class="topic-tag" style="border-color: var(--accent); color: var(--accent); background: rgba(255,0,102,0.15);">Social Engineering</span>
+                        <span class="topic-tag" style="border-color: var(--accent); color: var(--accent); background: rgba(255,0,102,0.15);">Advanced Phishing</span>
+                        <span class="topic-tag" style="border-color: var(--accent); color: var(--accent); background: rgba(255,0,102,0.15);">OSINT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2024 AIsecureOps Summit. Todos los derechos reservados.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Contacto: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5930
